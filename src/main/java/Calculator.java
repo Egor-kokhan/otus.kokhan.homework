@@ -6,20 +6,23 @@ public class Calculator {
 
     public double[] solve(double a, double b, double c) {
         if (Double.isInfinite(a) || Double.isInfinite(b) || Double.isInfinite(c)) {
-            return new double[]{};
+            throw new RuntimeException("infinite value");
+        }
+        if (Double.isNaN(a) || Double.isNaN(b) || Double.isNaN(c)) {
+            throw new RuntimeException("Not-a-Number value");
         }
         if (Math.abs(a) < eps) {
-            throw new RuntimeException("No decision");
+            throw new RuntimeException("no decision");
         }
         double d = Math.pow(b, 2) - 4 * a * c;
         if (Double.isInfinite(d)) {
-            return new double[]{};
+            throw new RuntimeException("infinite value");
+        }
+        if (Math.abs(d) < eps) {
+            return new double[]{-b / (2 * a)};
         }
         if (d < 0) {
             return new double[]{};
-        }
-        if (d == 0) {
-            return new double[]{-b / (2 * a)};
         }
 
         double[] rez = new double[2];
